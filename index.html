@@ -1,0 +1,1067 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Handwriting">
+<meta name="theme-color" content="#E7F3EF">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<title>Aveer’s Handwriting</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Andika:wght@400;700&display=swap">
+<style>
+/* Layout: a primary-school exercise book — lined paper pad as the hero, lesson cards like a copybook index. */
+:root {
+  --bg: #E7F3EF;
+  --card: #FFFFFF;
+  --ink: #15304A;
+  --muted: #557086;
+  --line: #CFE2DC;
+  --teal: #0E7C86;
+  --teal-soft: #DDF1F0;
+  --on-teal: #FFFFFF;
+  --pencil: #F5B700;
+  --pencil-soft: #FFF2C6;
+  --good: #1F9254;
+  --good-soft: #DDF4E6;
+  --bad: #D64545;
+  --bad-soft: #FCE3E3;
+  --paper: #FFFFFF;
+  --rule: #8DB8E3;
+  --rule-base: #4F86C6;
+  --margin: #EE8C8C;
+  --dots: #B9C6D3;
+  --pen: #1E4FD1;
+  --demo: #F08A00;
+  --guide: #19A35B;
+  --shadow: rgba(21, 48, 74, .10);
+  --scrim: rgba(12, 30, 45, .5);
+  --font-display: "Baloo 2", "Trebuchet MS", "Arial Rounded MT Bold", sans-serif;
+  --font-body: "Andika", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F2229; --card: #183139; --ink: #EAF6F3; --muted: #9DB9C0; --line: #2A4A52;
+    --teal: #49C3C9; --teal-soft: #1C4049; --on-teal: #08262B; --pencil: #FFC94A; --pencil-soft: #3B3317;
+    --good: #4FD08A; --good-soft: #173D2B; --bad: #FF8A8A; --bad-soft: #472226;
+    --paper: #F9FBFC; --rule: #8DB8E3; --rule-base: #4F86C6; --margin: #EE8C8C; --dots: #B9C6D3; --pen: #1E4FD1; --demo: #F08A00; --guide: #19A35B;
+    --shadow: rgba(0, 0, 0, .4); --scrim: rgba(0, 0, 0, .6);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0F2229; --card: #183139; --ink: #EAF6F3; --muted: #9DB9C0; --line: #2A4A52;
+  --teal: #49C3C9; --teal-soft: #1C4049; --on-teal: #08262B; --pencil: #FFC94A; --pencil-soft: #3B3317;
+  --good: #4FD08A; --good-soft: #173D2B; --bad: #FF8A8A; --bad-soft: #472226;
+  --paper: #F9FBFC; --rule: #8DB8E3; --rule-base: #4F86C6; --margin: #EE8C8C; --dots: #B9C6D3; --pen: #1E4FD1; --demo: #F08A00; --guide: #19A35B;
+  --shadow: rgba(0, 0, 0, .4); --scrim: rgba(0, 0, 0, .6);
+  color-scheme: dark;
+}
+
+[hidden] { display: none !important; }
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+}
+button { font: inherit; color: inherit; cursor: pointer; touch-action: manipulation; }
+button:focus-visible { outline: 3px solid var(--pencil); outline-offset: 2px; }
+button:disabled { opacity: .45; cursor: default; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 800; margin: 0; line-height: 1.1; text-wrap: balance; }
+.wrap { max-width: 1100px; margin: 0 auto; }
+
+/* Header */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-block: 10px; }
+.brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.brand-mark { width: 44px; height: 44px; border-radius: 12px; background: var(--pencil); display: grid; place-items: center; font-size: 24px; transform: rotate(-6deg); flex: 0 0 auto; box-shadow: 0 3px 0 color-mix(in srgb, var(--pencil) 55%, #000); }
+.brand h1 { font-size: clamp(22px, 3.6vw, 30px); white-space: nowrap; }
+.nav { display: flex; gap: 6px; flex: 0 0 auto; }
+.nbtn { height: 44px; padding: 0 14px; border-radius: 12px; border: 2px solid var(--line); background: var(--card); font-family: var(--font-display); font-weight: 700; font-size: 16px; display: flex; align-items: center; gap: 6px; }
+.nbtn[aria-current="true"] { background: var(--teal); color: var(--on-teal); border-color: var(--teal); }
+.card { background: var(--card); border: 2px solid var(--line); border-radius: 22px; box-shadow: 0 6px 18px var(--shadow); }
+
+.big-btn { min-height: 56px; padding: 0 24px; border-radius: 16px; border: 0; background: var(--teal); color: var(--on-teal); font-family: var(--font-display); font-weight: 800; font-size: 20px; box-shadow: 0 5px 0 color-mix(in srgb, var(--teal) 55%, #000); transition: transform .1s; }
+.big-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 color-mix(in srgb, var(--teal) 55%, #000); }
+.big-btn.alt { background: var(--card); color: var(--ink); border: 2px solid var(--line); box-shadow: 0 5px 0 var(--line); }
+.big-btn.small { min-height: 46px; font-size: 17px; padding: 0 16px; }
+
+/* Home */
+.hello { padding: 20px 22px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 22px; }
+.hello h2 { font-size: clamp(28px, 5vw, 38px); }
+.hello p { margin: 6px 0 0; color: var(--muted); font-size: 18px; max-width: 48ch; line-height: 1.45; }
+.save-status { display: inline-block; margin-top: 10px; padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 700; background: var(--teal-soft); color: var(--muted); }
+.save-status.ok { background: var(--good-soft); color: var(--good); }
+.save-status.warn { background: var(--bad-soft); color: var(--bad); }
+.lessons { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; padding-bottom: 40px; }
+.lesson { padding: 16px; display: grid; gap: 12px; min-width: 0; }
+.lesson.next { border-color: var(--teal); box-shadow: 0 0 0 3px var(--teal-soft), 0 6px 18px var(--shadow); }
+.lesson-head { display: flex; align-items: center; gap: 12px; }
+.lesson-icon { width: 48px; height: 48px; border-radius: 14px; background: var(--teal-soft); display: grid; place-items: center; font-size: 26px; flex: 0 0 auto; }
+.lesson-head h3 { font-size: 21px; }
+.lesson-head .meta { color: var(--muted); font-size: 14px; font-weight: 700; }
+.pill { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; background: var(--teal); color: var(--on-teal); margin-left: 6px; vertical-align: middle; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { min-width: 44px; height: 50px; padding: 0 8px; border-radius: 12px; border: 2px solid var(--line); background: var(--card); font-family: var(--font-body); font-size: 26px; line-height: 1; display: grid; place-items: center; position: relative; }
+.chip.word { font-size: 19px; }
+.chip i { position: absolute; left: 6px; right: 6px; bottom: 3px; height: 4px; border-radius: 4px; background: var(--line); }
+.chip.s1 i { background: var(--bad); } .chip.s2 i { background: var(--pencil); } .chip.s3 i { background: var(--good); }
+.lesson-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.starbar { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--muted); font-size: 15px; }
+.starbar .bar { width: 120px; height: 10px; border-radius: 999px; background: var(--teal-soft); overflow: hidden; }
+.starbar .bar b { display: block; height: 100%; background: var(--pencil); border-radius: 999px; }
+
+/* Practice */
+#vPractice { display: flex; flex-direction: column; gap: 10px; height: calc(100dvh - 66px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)); min-height: 520px; padding-bottom: 10px; }
+.pbar { display: flex; align-items: center; gap: 10px; }
+.xbtn { width: 46px; height: 46px; border-radius: 12px; border: 2px solid var(--line); background: var(--card); font-size: 18px; flex: 0 0 auto; }
+.ptitle { display: grid; min-width: 0; }
+.ptitle b { font-family: var(--font-display); font-size: 19px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ptitle span { color: var(--muted); font-size: 14px; font-weight: 700; }
+.steps { margin-left: auto; display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.step { padding: 6px 12px; border-radius: 999px; background: var(--card); border: 2px solid var(--line); font-weight: 700; font-size: 14px; white-space: nowrap; color: var(--muted); }
+.step.done { background: var(--good-soft); border-color: transparent; color: var(--good); }
+.step.now { background: var(--teal); border-color: var(--teal); color: var(--on-teal); }
+.pgrid { flex: 1; min-height: 0; display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 12px; }
+.model { padding: 12px; display: flex; flex-direction: column; gap: 10px; align-items: stretch; min-width: 0; }
+.model-box { background: var(--paper); border-radius: 14px; border: 2px solid var(--line); aspect-ratio: 4 / 3; position: relative; overflow: hidden; max-width: 100%; }
+.model-box canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.model-word { font-family: var(--font-display); font-weight: 700; font-size: 20px; text-align: center; }
+.model-word .em { font-size: 30px; display: block; line-height: 1.2; }
+.hear { height: 46px; border-radius: 14px; border: 2px solid var(--line); background: var(--card); font-weight: 700; font-size: 16px; }
+.model-tip { color: var(--muted); font-size: 14px; line-height: 1.4; text-align: center; margin: 0; }
+.pad { position: relative; padding: 0; overflow: hidden; background: var(--paper); min-width: 0; touch-action: none; }
+.pad canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+.bubble { position: absolute; left: 50%; top: 12px; transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 8px 16px; border-radius: 999px; font-weight: 700; font-size: 16px; white-space: nowrap; max-width: calc(100% - 24px); overflow: hidden; text-overflow: ellipsis; pointer-events: none; opacity: 0; transition: opacity .2s; z-index: 2; }
+.bubble.show { opacity: 1; }
+.result { position: absolute; inset: 0; display: grid; place-items: end center; z-index: 3; padding: 12px; pointer-events: none; }
+.res-card { pointer-events: auto; background: var(--card); border: 2px solid var(--line); border-radius: 22px; box-shadow: 0 12px 30px var(--shadow); padding: 14px 18px; width: min(460px, 100%); display: grid; gap: 8px; justify-items: center; text-align: center; }
+.res-stars { font-size: 40px; letter-spacing: 6px; line-height: 1; color: var(--pencil); }
+.res-stars .off { color: var(--line); }
+.res-title { font-family: var(--font-display); font-weight: 800; font-size: 25px; }
+.res-hints { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; color: var(--muted); font-size: 16px; line-height: 1.4; }
+.res-btns { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 4px; }
+.pctrl { display: flex; gap: 10px; justify-content: space-between; align-items: center; }
+.pctrl .grp { display: flex; gap: 10px; }
+.tool { height: 56px; padding: 0 16px; border-radius: 16px; border: 2px solid var(--line); background: var(--card); font-weight: 700; font-size: 17px; display: flex; align-items: center; gap: 6px; }
+.tool .ic { font-size: 20px; }
+#doneBtn { min-width: 170px; }
+
+/* Summary + progress */
+.sum-hero { padding: 24px; display: grid; gap: 14px; justify-items: center; text-align: center; margin-bottom: 16px; }
+.sum-hero .chip-l { padding: 4px 12px; border-radius: 999px; background: var(--teal-soft); color: var(--teal); font-weight: 700; font-size: 14px; }
+.sum-msg { font-family: var(--font-display); font-weight: 800; font-size: 30px; }
+.sum-stars { font-family: var(--font-display); font-weight: 800; font-size: clamp(56px, 12vw, 84px); line-height: 1; font-variant-numeric: tabular-nums; }
+.sum-stars small { font-size: .42em; color: var(--muted); }
+.facts { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.facts span { padding: 6px 12px; border-radius: 999px; background: var(--teal-soft); font-weight: 700; font-size: 14px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.section { padding: 18px 20px; margin-bottom: 16px; }
+.section h3 { font-size: 22px; margin-bottom: 12px; }
+.notes ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 9px; }
+.notes li { display: flex; gap: 10px; align-items: flex-start; line-height: 1.45; }
+.dot { flex: 0 0 auto; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 14px; }
+.dot.up { background: var(--good-soft); color: var(--good); } .dot.down { background: var(--bad-soft); color: var(--bad); } .dot.flat { background: var(--teal-soft); color: var(--teal); }
+.rows { display: grid; gap: 8px; }
+.irow { display: grid; grid-template-columns: 70px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 8px 10px; border-radius: 14px; border: 2px solid var(--line); }
+.irow .g { font-size: 34px; text-align: center; line-height: 1; }
+.irow .g.word { font-size: 22px; }
+.irow .d { color: var(--muted); font-size: 15px; line-height: 1.35; min-width: 0; }
+.irow .st { font-size: 22px; letter-spacing: 2px; color: var(--pencil); white-space: nowrap; }
+.st .off, .stars .off { color: var(--line); }
+.stars { color: var(--pencil); letter-spacing: 2px; }
+.tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 16px; }
+.tile { padding: 14px 16px; }
+.tile .k { color: var(--muted); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; }
+.tile .v { font-family: var(--font-display); font-weight: 800; font-size: 32px; font-variant-numeric: tabular-nums; }
+.grid-h { color: var(--muted); font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: .6px; margin: 12px 0 8px; }
+.chart-box svg { display: block; width: 100%; }
+.chart-box text { fill: var(--muted); font-family: var(--font-body); font-weight: 700; font-size: 12px; }
+.tblwrap { overflow-x: auto; }
+.hist { width: 100%; border-collapse: collapse; font-size: 15px; font-variant-numeric: tabular-nums; }
+.hist th { text-align: left; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .6px; padding: 6px 8px; border-bottom: 2px solid var(--line); }
+.hist td { padding: 8px; border-bottom: 1px solid var(--line); }
+.empty { text-align: center; color: var(--muted); padding: 24px 10px; font-size: 17px; line-height: 1.5; }
+.empty b { display: block; font-family: var(--font-display); color: var(--ink); font-size: 24px; }
+.parent p { margin: 0 0 10px; color: var(--muted); line-height: 1.45; max-width: 62ch; }
+.prow { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.code-box { width: 100%; min-height: 80px; border-radius: 12px; border: 2px solid var(--line); background: var(--bg); color: var(--ink); font: 13px/1.4 ui-monospace, Menlo, monospace; padding: 10px; margin-top: 10px; }
+.msg { font-weight: 700; color: var(--good); margin-top: 8px; min-height: 1em; }
+.danger { background: var(--card); color: var(--bad); border: 2px solid var(--bad); height: 46px; border-radius: 14px; padding: 0 16px; font-weight: 700; }
+.danger[data-armed="true"] { background: var(--bad); color: var(--card); }
+
+.modal { position: fixed; inset: 0; background: var(--scrim); display: grid; place-items: center; z-index: 20; padding: 16px; }
+.modal .card { max-width: 440px; width: 100%; padding: 22px; text-align: center; display: grid; gap: 14px; }
+.modal p { margin: 0; color: var(--muted); font-size: 17px; line-height: 1.45; }
+.modal .row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+#confetti { position: fixed; inset: 0; pointer-events: none; z-index: 30; width: 100%; height: 100%; }
+
+@media (max-aspect-ratio: 1/1) {
+  .pgrid { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+  .model { flex-direction: row; align-items: center; padding: 10px; }
+  .model-box { width: 150px; flex: 0 0 auto; }
+  .model-side { display: grid; gap: 8px; flex: 1; min-width: 0; }
+  .model-word { text-align: left; }
+  .model-word .em { display: inline; margin-right: 6px; }
+  .model-tip { text-align: left; }
+}
+@media (max-width: 760px) {
+  .lessons { grid-template-columns: minmax(0, 1fr); }
+  .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .nbtn .lb { display: none; }
+  .steps .step .lb { display: none; }
+  .tool .lb { display: none; }
+  .tool { width: 56px; justify-content: center; padding: 0; }
+  #doneBtn { min-width: 0; flex: 1; }
+  .pctrl .grp:last-child { flex: 1; justify-content: flex-end; }
+  .model-tip { display: none; }
+  .model-box { width: 120px; }
+}
+@media (max-width: 480px) {
+  .brand h1 { font-size: 20px; }
+  .steps { flex-wrap: nowrap; gap: 4px; }
+  .step { padding: 4px 8px; }
+  .ptitle b { font-size: 17px; }
+  .irow { grid-template-columns: 54px minmax(0, 1fr); }
+  .irow .st { grid-column: 2; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand"><div class="brand-mark" aria-hidden="true">✏️</div><h1>Aveer’s Handwriting</h1></div>
+    <nav class="nav" id="nav">
+      <button class="nbtn" id="navHome" aria-current="true"><span aria-hidden="true">📒</span><span class="lb">Lessons</span></button>
+      <button class="nbtn" id="navProgress" aria-current="false"><span aria-hidden="true">📈</span><span class="lb">Progress</span></button>
+      <button class="nbtn" id="navSound" aria-label="Sound on"><span class="ic" aria-hidden="true">🔊</span></button>
+    </nav>
+  </header>
+  <main>
+    <section id="vHome"></section>
+    <section id="vPractice" hidden>
+      <div class="pbar">
+        <button class="xbtn" id="quitBtn" aria-label="Stop practice">✕</button>
+        <div class="ptitle"><b id="pTitle"></b><span id="pCount"></span></div>
+        <div class="steps" id="steps"></div>
+      </div>
+      <div class="pgrid">
+        <aside class="card model">
+          <div class="model-box"><canvas id="modelC" aria-label="How to write it, with stroke numbers"></canvas></div>
+          <div class="model-side">
+            <div class="model-word" id="modelWord"></div>
+            <button class="hear" id="hearBtn">🔈 Hear it</button>
+            <p class="model-tip" id="modelTip"></p>
+          </div>
+        </aside>
+        <div class="card pad" id="pad">
+          <canvas id="bgC"></canvas>
+          <canvas id="inkC" aria-label="Writing paper"></canvas>
+          <div class="bubble" id="bubble" role="status"></div>
+          <div class="result" id="result" hidden></div>
+        </div>
+      </div>
+      <div class="pctrl">
+        <div class="grp">
+          <button class="tool" id="watchBtn"><span class="ic">▶️</span><span class="lb">Watch</span></button>
+          <button class="tool" id="clearBtn"><span class="ic">↺</span><span class="lb">Clear</span></button>
+        </div>
+        <div class="grp"><button class="big-btn" id="doneBtn">Done ✓</button></div>
+      </div>
+    </section>
+    <section id="vSummary" hidden></section>
+    <section id="vProgress" hidden></section>
+  </main>
+</div>
+<div class="modal" id="modal" hidden><div class="card" role="dialog" aria-modal="true" id="modalCard"></div></div>
+<canvas id="confetti" hidden></canvas>
+
+<script>
+(() => {
+  'use strict';
+  // Print (ball-and-stick) letter shapes on 4-line paper.
+// Units: top line y=0, dashed midline y=50, baseline y=100, descender line y=145.
+// Each glyph: w = advance width, s = strokes in teaching order.
+// A stroke is a list of parts: ['line',x1,y1,x2,y2] | ['arc',cx,cy,rx,ry,a0,a1] | ['dot',x,y]
+// Arc angles are in degrees, 0 = 3 o'clock, 90 = 12 o'clock; going up in angle = anticlockwise.
+const GLYPHS = {
+  // ---------- lowercase ----------
+  a: { w: 50, s: [[['arc', 25, 75, 25, 25, 30, 390]], [['line', 50, 50, 50, 100]]] },
+  b: { w: 50, s: [[['line', 0, 0, 0, 100]], [['arc', 25, 75, 25, 25, 180, -180]]] },
+  c: { w: 48, s: [[['arc', 25, 75, 25, 25, 40, 320]]] },
+  d: { w: 50, s: [[['arc', 25, 75, 25, 25, 30, 390]], [['line', 50, 0, 50, 100]]] },
+  e: { w: 50, s: [[['line', 0, 75, 50, 75], ['arc', 25, 75, 25, 25, 0, 320]]] },
+  f: { w: 40, s: [[['arc', 28, 16, 14, 16, 25, 180], ['line', 14, 16, 14, 100]], [['line', 0, 50, 32, 50]]] },
+  g: { w: 50, s: [[['arc', 25, 75, 25, 25, 30, 390]], [['line', 50, 50, 50, 128], ['arc', 26, 128, 24, 17, 0, -160]]] },
+  h: { w: 50, s: [[['line', 0, 0, 0, 100]], [['arc', 25, 75, 25, 25, 180, 0], ['line', 50, 75, 50, 100]]] },
+  i: { w: 14, s: [[['line', 7, 50, 7, 100]], [['dot', 7, 28]]] },
+  j: { w: 36, s: [[['line', 30, 50, 30, 128], ['arc', 15, 128, 15, 17, 0, -170]], [['dot', 30, 28]]] },
+  k: { w: 40, s: [[['line', 0, 0, 0, 100]], [['line', 38, 50, 2, 76], ['line', 2, 76, 40, 100]]] },
+  l: { w: 10, s: [[['line', 5, 0, 5, 100]]] },
+  m: { w: 72, s: [[['line', 0, 50, 0, 100]], [['arc', 18, 68, 18, 18, 180, 0], ['line', 36, 68, 36, 100]], [['arc', 54, 68, 18, 18, 180, 0], ['line', 72, 68, 72, 100]]] },
+  n: { w: 50, s: [[['line', 0, 50, 0, 100]], [['arc', 25, 75, 25, 25, 180, 0], ['line', 50, 75, 50, 100]]] },
+  o: { w: 50, s: [[['arc', 25, 75, 25, 25, 90, 450]]] },
+  p: { w: 50, s: [[['line', 0, 50, 0, 145]], [['arc', 25, 75, 25, 25, 180, -180]]] },
+  q: { w: 50, s: [[['arc', 25, 75, 25, 25, 30, 390]], [['line', 50, 50, 50, 145]]] },
+  r: { w: 40, s: [[['line', 0, 50, 0, 100]], [['arc', 22, 72, 22, 22, 180, 35]]] },
+  s: { w: 46, s: [[['arc', 23, 62.5, 21, 12.5, 25, 270], ['arc', 23, 87.5, 21, 12.5, 90, -155]]] },
+  t: { w: 32, s: [[['line', 14, 12, 14, 100]], [['line', 0, 50, 30, 50]]] },
+  u: { w: 50, s: [[['line', 0, 50, 0, 75], ['arc', 25, 75, 25, 25, 180, 360], ['line', 50, 75, 50, 50]], [['line', 50, 50, 50, 100]]] },
+  v: { w: 50, s: [[['line', 0, 50, 25, 100], ['line', 25, 100, 50, 50]]] },
+  w: { w: 70, s: [[['line', 0, 50, 17, 100], ['line', 17, 100, 35, 55], ['line', 35, 55, 53, 100], ['line', 53, 100, 70, 50]]] },
+  x: { w: 46, s: [[['line', 0, 50, 46, 100]], [['line', 46, 50, 0, 100]]] },
+  y: { w: 50, s: [[['line', 0, 50, 25, 100]], [['line', 50, 50, 8, 145]]] },
+  z: { w: 46, s: [[['line', 0, 50, 46, 50], ['line', 46, 50, 0, 100], ['line', 0, 100, 46, 100]]] },
+
+  // ---------- capitals ----------
+  A: { w: 62, s: [[['line', 31, 0, 0, 100]], [['line', 31, 0, 62, 100]], [['line', 12, 64, 50, 64]]] },
+  B: { w: 50, s: [[['line', 0, 0, 0, 100]], [['line', 0, 0, 24, 0], ['arc', 24, 25, 22, 25, 90, -90], ['line', 24, 50, 0, 50]], [['line', 0, 50, 26, 50], ['arc', 26, 75, 24, 25, 90, -90], ['line', 26, 100, 0, 100]]] },
+  C: { w: 74, s: [[['arc', 38, 50, 38, 50, 45, 315]]] },
+  D: { w: 58, s: [[['line', 0, 0, 0, 100]], [['line', 0, 0, 20, 0], ['arc', 20, 50, 38, 50, 90, -90], ['line', 20, 100, 0, 100]]] },
+  E: { w: 46, s: [[['line', 0, 0, 0, 100]], [['line', 0, 0, 46, 0]], [['line', 0, 50, 38, 50]], [['line', 0, 100, 46, 100]]] },
+  F: { w: 46, s: [[['line', 0, 0, 0, 100]], [['line', 0, 0, 46, 0]], [['line', 0, 50, 38, 50]]] },
+  G: { w: 78, s: [[['arc', 39, 50, 39, 50, 45, 360]], [['line', 78, 52, 46, 52]]] },
+  H: { w: 52, s: [[['line', 0, 0, 0, 100]], [['line', 52, 0, 52, 100]], [['line', 0, 50, 52, 50]]] },
+  I: { w: 32, s: [[['line', 16, 0, 16, 100]], [['line', 0, 0, 32, 0]], [['line', 0, 100, 32, 100]]] },
+  J: { w: 42, s: [[['line', 42, 0, 42, 72], ['arc', 22, 72, 20, 28, 0, -170]]] },
+  K: { w: 50, s: [[['line', 0, 0, 0, 100]], [['line', 48, 0, 2, 56]], [['line', 16, 40, 50, 100]]] },
+  L: { w: 44, s: [[['line', 0, 0, 0, 100], ['line', 0, 100, 44, 100]]] },
+  M: { w: 66, s: [[['line', 0, 0, 0, 100]], [['line', 0, 0, 33, 72], ['line', 33, 72, 66, 0]], [['line', 66, 0, 66, 100]]] },
+  N: { w: 54, s: [[['line', 0, 0, 0, 100]], [['line', 0, 0, 54, 100]], [['line', 54, 100, 54, 0]]] },
+  O: { w: 78, s: [[['arc', 39, 50, 39, 50, 90, 450]]] },
+  P: { w: 48, s: [[['line', 0, 0, 0, 100]], [['line', 0, 0, 24, 0], ['arc', 24, 27, 24, 27, 90, -90], ['line', 24, 54, 0, 54]]] },
+  Q: { w: 78, s: [[['arc', 39, 50, 39, 50, 90, 450]], [['line', 46, 68, 80, 104]]] },
+  R: { w: 52, s: [[['line', 0, 0, 0, 100]], [['line', 0, 0, 24, 0], ['arc', 24, 27, 24, 27, 90, -90], ['line', 24, 54, 0, 54]], [['line', 20, 54, 52, 100]]] },
+  S: { w: 52, s: [[['arc', 26, 25, 24, 25, 30, 270], ['arc', 26, 75, 26, 25, 90, -150]]] },
+  T: { w: 54, s: [[['line', 27, 0, 27, 100]], [['line', 0, 0, 54, 0]]] },
+  U: { w: 54, s: [[['line', 0, 0, 0, 70], ['arc', 27, 70, 27, 30, 180, 360], ['line', 54, 70, 54, 0]]] },
+  V: { w: 58, s: [[['line', 0, 0, 29, 100], ['line', 29, 100, 58, 0]]] },
+  W: { w: 84, s: [[['line', 0, 0, 21, 100], ['line', 21, 100, 42, 20], ['line', 42, 20, 63, 100], ['line', 63, 100, 84, 0]]] },
+  X: { w: 54, s: [[['line', 0, 0, 54, 100]], [['line', 54, 0, 0, 100]]] },
+  Y: { w: 56, s: [[['line', 0, 0, 28, 50]], [['line', 56, 0, 28, 50], ['line', 28, 50, 28, 100]]] },
+  Z: { w: 54, s: [[['line', 0, 0, 54, 0], ['line', 54, 0, 0, 100], ['line', 0, 100, 54, 100]]] },
+
+  // ---------- numbers ----------
+  '0': { w: 50, s: [[['arc', 25, 50, 25, 50, 90, 450]]] },
+  '1': { w: 24, s: [[['line', 4, 16, 20, 0], ['line', 20, 0, 20, 100]]] },
+  '2': { w: 50, s: [[['arc', 25, 27, 24, 25, 160, -20], ['line', 47.6, 35.6, 0, 100], ['line', 0, 100, 50, 100]]] },
+  '3': { w: 48, s: [[['arc', 23, 25, 23, 25, 150, -90], ['arc', 23, 75, 25, 25, 90, -150]]] },
+  '4': { w: 52, s: [[['line', 34, 0, 0, 66], ['line', 0, 66, 52, 66]], [['line', 40, 0, 40, 100]]] },
+  '5': { w: 48, s: [[['line', 5, 0, 3.2, 55], ['arc', 24, 70, 24, 30, 150, -150]], [['line', 5, 0, 45, 0]]] },
+  '6': { w: 50, s: [[['arc', 30, 55, 28, 55, 60, 200], ['arc', 26, 74, 23, 26, 180, 540]]] },
+  '7': { w: 50, s: [[['line', 0, 0, 50, 0], ['line', 50, 0, 16, 100]]] },
+  '8': { w: 50, s: [[['arc', 25, 25, 20, 25, 90, 270], ['arc', 25, 75, 24, 25, 90, -270], ['arc', 25, 25, 20, 25, -90, 90]]] },
+  '9': { w: 50, s: [[['arc', 24, 26, 22, 26, 10, 370]], [['line', 46, 26, 46, 100]]] }
+};
+
+// Turn a glyph's strokes into point lists (units), about 1.5 units apart.
+function samplePart(p) {
+  const out = [];
+  if (p[0] === 'dot') { out.push([p[1], p[2]]); return out; }
+  if (p[0] === 'line') {
+    const [, x1, y1, x2, y2] = p, L = Math.hypot(x2 - x1, y2 - y1), n = Math.max(1, Math.ceil(L / 1.5));
+    for (let i = 0; i <= n; i++) out.push([x1 + (x2 - x1) * i / n, y1 + (y2 - y1) * i / n]);
+    return out;
+  }
+  const [, cx, cy, rx, ry, a0, a1] = p, span = Math.abs(a1 - a0) * Math.PI / 180;
+  const n = Math.max(2, Math.ceil(span * Math.max(rx, ry) / 1.5));
+  for (let i = 0; i <= n; i++) {
+    const a = (a0 + (a1 - a0) * i / n) * Math.PI / 180;
+    out.push([cx + rx * Math.cos(a), cy - ry * Math.sin(a)]);
+  }
+  return out;
+}
+function sampleStroke(stroke) {
+  const pts = [];
+  stroke.forEach(part => samplePart(part).forEach(q => {
+    const last = pts[pts.length - 1];
+    if (!last || Math.hypot(q[0] - last[0], q[1] - last[1]) > 0.01) pts.push(q);
+  }));
+  return pts;
+}
+
+
+  const $ = id => document.getElementById(id);
+  const GAP = 18;
+  const LESSONS = [
+    { id: 'caps1', name: 'Straight line capitals', icon: '📏', items: ['L', 'T', 'I', 'E', 'F', 'H'] },
+    { id: 'caps2', name: 'Slanted capitals', icon: '⛰️', items: ['A', 'V', 'W', 'X', 'Y', 'Z', 'K', 'M', 'N'] },
+    { id: 'caps3', name: 'Curvy capitals', icon: '🌙', items: ['C', 'O', 'Q', 'G', 'S', 'D', 'P', 'B', 'R', 'U', 'J'] },
+    { id: 'low1', name: 'Round letters', icon: '🍩', items: ['c', 'a', 'd', 'g', 'o', 'q', 'e', 's'] },
+    { id: 'low2', name: 'Tall and tail letters', icon: '🦒', items: ['l', 't', 'i', 'j', 'k', 'f'] },
+    { id: 'low3', name: 'Bumpy letters', icon: '🐫', items: ['r', 'n', 'm', 'h', 'b', 'p'] },
+    { id: 'low4', name: 'Slanty letters', icon: '⛷️', items: ['u', 'v', 'w', 'x', 'y', 'z'] },
+    { id: 'nums', name: 'Numbers', icon: '🔢', items: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'] },
+    { id: 'name', name: 'My name', icon: '⭐', items: ['Aveer'] },
+    { id: 'words', name: 'First words', icon: '📖', items: ['cat', 'dog', 'sun', 'the', 'and', 'see', 'big', 'fun'] }
+  ];
+  const ALL_ITEMS = LESSONS.flatMap(l => l.items);
+  const lessonOf = item => LESSONS.find(l => l.items.includes(item));
+  const WORDS = { a: ['apple', '🍎'], b: ['ball', '⚽'], c: ['cat', '🐱'], d: ['dog', '🐶'], e: ['egg', '🥚'], f: ['fish', '🐟'], g: ['goat', '🐐'], h: ['hat', '🎩'], i: ['igloo', '🧊'], j: ['jelly', '🍮'], k: ['kite', '🪁'], l: ['lion', '🦁'], m: ['moon', '🌙'], n: ['nest', '🪺'], o: ['orange', '🍊'], p: ['pig', '🐷'], q: ['queen', '👑'], r: ['rainbow', '🌈'], s: ['sun', '☀️'], t: ['tree', '🌳'], u: ['umbrella', '☂️'], v: ['van', '🚐'], w: ['whale', '🐳'], x: ['fox', '🦊'], y: ['yo-yo', '🪀'], z: ['zebra', '🦓'] };
+  const NAMES = { a: 'ay', b: 'bee', c: 'see', d: 'dee', e: 'ee', f: 'ef', g: 'jee', h: 'aitch', i: 'eye', j: 'jay', k: 'kay', l: 'el', m: 'em', n: 'en', o: 'oh', p: 'pee', q: 'cue', r: 'ar', s: 'ess', t: 'tee', u: 'you', v: 'vee', w: 'double you', x: 'ex', y: 'why', z: 'zed' };
+  const WORD_EMOJI = { Aveer: '⭐', cat: '🐱', dog: '🐶', sun: '☀️', the: '📘', and: '➕', see: '👀', big: '🐘', fun: '🎉' };
+  const NUM_WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+  const kindOf = it => it.length > 1 ? 'word' : /[0-9]/.test(it) ? 'number' : it === it.toUpperCase() ? 'capital' : 'small';
+  const labelOf = it => ({ word: it === 'Aveer' ? 'your name' : 'the word', number: 'number', capital: 'capital', small: 'small' })[kindOf(it)];
+  const uniq = a => [...new Set(a)];
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const dist = (p, q) => Math.hypot(p[0] - q[0], p[1] - q[1]);
+  const plural = (n, w, ws) => `${n} ${n === 1 ? w : (ws || w + 's')}`;
+  const STROKE_COLS = ['#E53935', '#1E88E5', '#2E9D4F', '#F08A00', '#8E44C9'];
+
+  function layoutItem(item) {
+    let x = 0; const strokes = [];
+    [...item].forEach((ch, i) => {
+      const g = GLYPHS[ch]; if (!g) return;
+      if (i) x += GAP;
+      g.s.forEach(st => strokes.push({ pts: sampleStroke(st).map(([px, py]) => [px + x, py]), isDot: st.length === 1 && st[0][0] === 'dot' }));
+      x += g.w;
+    });
+    return { strokes, w: x };
+  }
+
+  // ================= Storage (this device; kept when opened from the Home Screen icon) =================
+  const KEY = 'aveer.handwriting.v1';
+  let mem = { attempts: [], sessions: [], sound: true, resetAt: 0 }, localOK = true;
+  try { const raw = localStorage.getItem(KEY); if (raw) mem = Object.assign(mem, JSON.parse(raw)); } catch (_) { localOK = false; }
+  let topLevel = true; try { topLevel = window.self === window.top; } catch (_) { topLevel = false; }
+  const save = () => {
+    if (mem.attempts.length > 6000) mem.attempts = mem.attempts.slice(-6000);
+    if (mem.sessions.length > 600) mem.sessions = mem.sessions.slice(-600);
+    try { localStorage.setItem(KEY, JSON.stringify(mem)); } catch (_) { localOK = false; }
+  };
+  try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {}); } catch (_) {}
+  const keeping = () => localOK && topLevel;
+  const statusHTML = () => keeping()
+    ? `<span class="save-status ok">✓ Progress is saved on this device</span>`
+    : `<span class="save-status warn">⚠ Progress is not being kept in this window</span>`;
+
+  const starsOf = s => s >= 86 ? 3 : s >= 72 ? 2 : s >= 55 ? 1 : 0;
+  const starHTML = n => `${'★'.repeat(n)}<span class="off">${'★'.repeat(3 - n)}</span>`;
+  const bestWrite = it => mem.attempts.reduce((b, a) => a.i === it && a.m === 'write' ? Math.max(b, a.s) : b, -1);
+  const writesOf = it => mem.attempts.filter(a => a.i === it && a.m === 'write');
+  const lessonStars = L => L.items.reduce((s, it) => s + Math.max(0, starsOf(bestWrite(it)) * (bestWrite(it) >= 0)), 0);
+  const nextLesson = () => {
+    const i = LESSONS.findIndex(L => lessonStars(L) < L.items.length * 2);
+    return i >= 0 ? i : LESSONS.reduce((bi, L, i) => lessonStars(L) / (L.items.length * 3) < lessonStars(LESSONS[bi]) / (LESSONS[bi].items.length * 3) ? i : bi, 0);
+  };
+  const dayKey = t => { const d = new Date(t); return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`; };
+  const daysPractised = () => new Set(mem.sessions.map(s => dayKey(s.id))).size;
+  function streak() {
+    const days = new Set(mem.sessions.map(s => dayKey(s.id)));
+    let n = 0; const d = new Date();
+    if (!days.has(dayKey(d))) d.setDate(d.getDate() - 1);
+    while (days.has(dayKey(d))) { n++; d.setDate(d.getDate() - 1); }
+    return n;
+  }
+  const fmtSecs = s => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+  const fmtDate = t => { const d = new Date(t); return d.toLocaleDateString(undefined, { day: 'numeric', month: 'short' }) + ', ' + d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' }); };
+
+  // ================= Sound + voice =================
+  let ac = null;
+  const unlockAudio = () => { if (!ac) { try { ac = new (window.AudioContext || window.webkitAudioContext)(); } catch (_) {} } if (ac && ac.state === 'suspended') ac.resume().catch(() => {}); };
+  function tone(f, d, type = 'triangle', v = 0.09, delay = 0) {
+    if (!ac || !mem.sound) return;
+    const t0 = ac.currentTime + delay, o = ac.createOscillator(), g = ac.createGain();
+    o.type = type; o.frequency.setValueAtTime(f, t0); g.gain.setValueAtTime(v, t0); g.gain.exponentialRampToValueAtTime(0.001, t0 + d);
+    o.connect(g).connect(ac.destination); o.start(t0); o.stop(t0 + d + 0.02);
+  }
+  const sfx = {
+    tap: () => tone(700, .06), stroke: () => tone(520, .05, 'sine', .05),
+    star: n => [660, 880, 1100].slice(0, Math.max(1, n)).forEach((f, i) => tone(f, .16, 'triangle', .1, i * .12)),
+    oops: () => tone(300, .18, 'sine', .08),
+    done: () => [523, 659, 784, 1047, 1319].forEach((f, i) => tone(f, .18, 'triangle', .1, i * .11))
+  };
+  const canSpeak = 'speechSynthesis' in window;
+  function speak(text) {
+    if (!canSpeak || !mem.sound) return;
+    try {
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text); u.rate = 0.88; u.lang = 'en-IN';
+      const vs = speechSynthesis.getVoices();
+      const v = vs.find(x => /en-IN/i.test(x.lang)) || vs.find(x => /en-GB/i.test(x.lang)) || vs.find(x => /^en/i.test(x.lang));
+      if (v) u.voice = v;
+      speechSynthesis.speak(u);
+    } catch (_) {}
+  }
+  function sayFor(it) {
+    const k = kindOf(it);
+    if (it === 'Aveer') return 'Let’s write your name. Capital ay, vee, ee, ee, ar. Aveer!';
+    if (k === 'word') return `Let’s write the word ${it}. ${[...it].map(c => NAMES[c]).join(', ')}. ${it}.`;
+    if (k === 'number') return `Let’s write the number ${NUM_WORDS[+it]}.`;
+    if (k === 'capital') return `Let’s write a capital ${NAMES[it.toLowerCase()]}. ${NAMES[it.toLowerCase()]} for ${WORDS[it.toLowerCase()][0]}.`;
+    return `Let’s write a small ${NAMES[it]}. ${NAMES[it]} for ${WORDS[it][0]}.`;
+  }
+
+  // ================= Views =================
+  let view = 'home';
+  function show(v) {
+    view = v;
+    ['Home', 'Practice', 'Summary', 'Progress'].forEach(n => $('v' + n).hidden = n.toLowerCase() !== v);
+    $('navHome').setAttribute('aria-current', v === 'home');
+    $('navProgress').setAttribute('aria-current', v === 'progress');
+    $('nav').style.visibility = v === 'practice' ? 'hidden' : '';
+    window.scrollTo(0, 0);
+  }
+  const chipHTML = (it, extra = '') => {
+    const b = bestWrite(it), s = b >= 0 ? starsOf(b) : -1;
+    return `<button class="chip ${it.length > 1 ? 'word' : ''} ${s > 0 ? 's' + s : ''}" data-item="${it}" ${extra} aria-label="Practise ${it}${s >= 0 ? `, ${s} stars` : ''}">${it}<i></i></button>`;
+  };
+
+  function renderHome() {
+    const nl = nextLesson(), L = LESSONS[nl], days = daysPractised(), st = streak();
+    const hello = mem.sessions.length
+      ? `You have practised on ${plural(days, 'day')}${st > 1 ? `, ${st} days in a row` : ''}. Up next: <b>${L.name}</b>.`
+      : `Watch how each letter is made, trace it, then write it all by yourself. Let’s start with <b>${L.name}</b>!`;
+    let html = `<div class="card hello"><div><h2>Hi Aveer! ✏️</h2><p>${hello}</p>${statusHTML()}</div><button class="big-btn" id="startNext">Start ${L.name} →</button></div><div class="lessons">`;
+    LESSONS.forEach((Ls, i) => {
+      const got = lessonStars(Ls), max = Ls.items.length * 3, tried = Ls.items.some(it => bestWrite(it) >= 0);
+      html += `<div class="card lesson ${i === nl ? 'next' : ''}">
+        <div class="lesson-head"><div class="lesson-icon" aria-hidden="true">${Ls.icon}</div><div><h3>${Ls.name}${i === nl ? '<span class="pill">Up next</span>' : ''}</h3><div class="meta">${Ls.items.length > 1 ? plural(Ls.items.length, Ls.id === 'words' ? 'word' : Ls.id === 'nums' ? 'number' : 'letter') : 'Write your own name'}</div></div></div>
+        <div class="chips">${Ls.items.map(it => chipHTML(it)).join('')}</div>
+        <div class="lesson-foot"><div class="starbar"><span class="bar"><b style="width:${got / max * 100}%"></b></span>${got} / ${max} ★</div><button class="big-btn small ${tried ? 'alt' : ''}" data-lesson="${Ls.id}">${tried ? 'Practise again' : 'Start'}</button></div>
+      </div>`;
+    });
+    $('vHome').innerHTML = html + '</div>';
+    $('startNext').onclick = () => { unlockAudio(); startLesson(L.id); };
+    $('vHome').querySelectorAll('[data-lesson]').forEach(b => b.onclick = () => { unlockAudio(); startLesson(b.dataset.lesson); });
+    $('vHome').querySelectorAll('[data-item]').forEach(b => b.onclick = () => { unlockAudio(); startLesson(lessonOf(b.dataset.item).id, b.dataset.item); });
+  }
+
+  // ================= Practice =================
+  let S = null;
+  const P = { returnTo: null, mode: 'watch', ink: [], cur: null, active: null, penSeen: false, result: null, T: { s: 1, ox: 0, oy: 0 }, w: 0, h: 0, dpr: 1, anim: 0, autoTimer: 0, overlay: null, watchDone: false };
+  const bgC = $('bgC'), inkC = $('inkC'), bgX = bgC.getContext('2d'), inkX = inkC.getContext('2d'), padEl = $('pad');
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+  function startLesson(id, only) {
+    const L = LESSONS.find(l => l.id === id);
+    S = { L, items: only ? [only] : L.items.slice(), single: !!only, idx: 0, stepIdx: 0, plan: [], start: Date.now(), res: {}, tpl: null };
+    show('practice'); beginItem();
+  }
+  function beginItem() {
+    const it = S.items[S.idx];
+    S.plan = it.length > 1 ? ['watch', 'trace', 'write'] : ['watch', 'trace', 'trace', 'write'];
+    S.stepIdx = 0; S.tpl = layoutItem(it);
+    S.res[it] = S.res[it] || { trace: [], write: [] };
+    $('pTitle').textContent = S.single ? `Practise: ${it}` : S.L.name;
+    $('pCount').textContent = S.single ? '' : `${kindOf(it) === 'word' ? 'Word' : kindOf(it) === 'number' ? 'Number' : 'Letter'} ${S.idx + 1} of ${S.items.length}`;
+    const k = kindOf(it);
+    const em = k === 'word' ? WORD_EMOJI[it] || '📝' : k === 'number' ? (+it ? '⭐'.repeat(+it) : '○') : WORDS[it.toLowerCase()][1];
+    const wd = k === 'word' ? (it === 'Aveer' ? 'My name' : it) : k === 'number' ? NUM_WORDS[+it] : `${it} for ${WORDS[it.toLowerCase()][0]}`;
+    $('modelWord').innerHTML = `<span class="em" aria-hidden="true">${em}</span>${wd}`;
+    $('modelTip').textContent = `Follow the numbers: ${plural(S.tpl.strokes.length, 'line')} to make ${k === 'word' ? 'it' : 'this ' + (k === 'number' ? 'number' : 'letter')}.`;
+    renderModel(); setMode(S.plan[0]);
+    speak(sayFor(it));
+  }
+  function renderSteps() {
+    const names = { watch: ['👀', 'Watch'], trace: ['✏️', 'Trace'], write: ['🖐', 'Write'] };
+    $('steps').innerHTML = S.plan.map((m, i) => `<span class="step ${i < S.stepIdx ? 'done' : i === S.stepIdx ? 'now' : ''}">${names[m][0]} <span class="lb">${names[m][1]}</span></span>`).join('');
+  }
+  function setMode(m) {
+    cancelAnimationFrame(P.anim); clearTimeout(P.autoTimer);
+    P.mode = m; P.ink = []; P.cur = null; P.active = null; P.result = null; P.overlay = null; P.watchDone = false; P.returnTo = null;
+    $('result').hidden = true; hideBubble();
+    renderSteps(); layout(); drawBg(); drawInk(); updateControls();
+    if (m === 'watch') playWatch();
+    if (m === 'write') bubble('Now write it all by yourself!', 2600);
+  }
+  function updateControls() {
+    const d = $('doneBtn');
+    if (P.mode === 'watch') { d.textContent = P.returnTo === 'write' ? 'Write it myself →' : P.returnTo === 'trace' ? 'Back to tracing →' : 'Start tracing →'; d.disabled = false; $('clearBtn').disabled = true; }
+    else { d.textContent = 'Done ✓'; d.disabled = !P.ink.length || !!P.result; $('clearBtn').disabled = !P.ink.length || !!P.result; }
+    $('watchBtn').querySelector('.lb').textContent = P.mode === 'watch' ? 'Watch again' : 'Watch';
+  }
+
+  function layout() {
+    const r = padEl.getBoundingClientRect();
+    P.w = Math.max(10, r.width); P.h = Math.max(10, r.height); P.dpr = Math.min(2, window.devicePixelRatio || 1);
+    [bgC, inkC].forEach(c => { c.width = Math.round(P.w * P.dpr); c.height = Math.round(P.h * P.dpr); });
+    const wu = S.tpl.w, left = 46;
+    const s = Math.min((P.h - 30) / 180, (P.w - left - 26) / (wu + 16), 3.6);
+    P.T = { s, ox: left + (P.w - left - 14 - wu * s) / 2, oy: (P.h - 145 * s) / 2 + 4 * s };
+  }
+  const toPx = ([x, y]) => [P.T.ox + x * P.T.s, P.T.oy + y * P.T.s];
+  const toU = (px, py) => [(px - P.T.ox) / P.T.s, (py - P.T.oy) / P.T.s];
+  const penW = () => clamp(5.2 * P.T.s, 6, 17);
+
+  function pathPx(x, pts, map = toPx) {
+    x.beginPath();
+    pts.forEach((p, i) => { const [a, b] = map(p); i ? x.lineTo(a, b) : x.moveTo(a, b); });
+    if (pts.length === 1) { const [a, b] = map(pts[0]); x.lineTo(a + 0.01, b); }
+  }
+  function arrowAt(x, pts, frac, color, size) {
+    if (pts.length < 3) return;
+    const i = clamp(Math.floor(pts.length * frac), 0, pts.length - 2), j = Math.min(pts.length - 1, i + 3);
+    const [ax, ay] = toPx(pts[i]), [bx, by] = toPx(pts[j]), ang = Math.atan2(by - ay, bx - ax);
+    x.fillStyle = color; x.beginPath();
+    x.moveTo(ax + Math.cos(ang) * size, ay + Math.sin(ang) * size);
+    x.lineTo(ax + Math.cos(ang + 2.45) * size, ay + Math.sin(ang + 2.45) * size);
+    x.lineTo(ax + Math.cos(ang - 2.45) * size, ay + Math.sin(ang - 2.45) * size);
+    x.closePath(); x.fill();
+  }
+  function badge(x, p, n, color, r) {
+    const [a, b] = toPx(p);
+    x.fillStyle = color; x.beginPath(); x.arc(a, b, r, 0, Math.PI * 2); x.fill();
+    x.fillStyle = '#fff'; x.font = `700 ${Math.round(r * 1.2)}px ${css('--font-body') || 'sans-serif'}`; x.textAlign = 'center'; x.textBaseline = 'middle';
+    x.fillText(String(n), a, b + r * 0.06);
+  }
+
+  function drawBg() {
+    const x = bgX, W = P.w, H = P.h, s = P.T.s;
+    x.setTransform(P.dpr, 0, 0, P.dpr, 0, 0); x.clearRect(0, 0, W, H);
+    x.fillStyle = css('--paper'); x.fillRect(0, 0, W, H);
+    x.strokeStyle = css('--margin'); x.lineWidth = 2; x.setLineDash([]); x.beginPath(); x.moveTo(30, 0); x.lineTo(30, H); x.stroke();
+    const rule = (u, col, lw, dash) => { const y = P.T.oy + u * s; x.strokeStyle = col; x.lineWidth = lw; x.setLineDash(dash); x.beginPath(); x.moveTo(0, y); x.lineTo(W, y); x.stroke(); };
+    rule(0, css('--rule'), 2.5, []); rule(50, css('--rule'), 2, [10, 8]); rule(100, css('--rule-base'), 3, []); rule(145, css('--rule'), 1.5, [3, 7]);
+    x.setLineDash([]);
+    const tpl = S.tpl, lw = clamp(7.5 * s, 9, 24);
+    if (P.mode === 'trace' || P.mode === 'watch') {
+      x.strokeStyle = css('--dots'); x.fillStyle = css('--dots'); x.lineCap = 'round'; x.lineJoin = 'round'; x.lineWidth = lw;
+      tpl.strokes.forEach(st => {
+        if (st.isDot) { const [a, b] = toPx(st.pts[0]); x.beginPath(); x.arc(a, b, lw * 0.62, 0, Math.PI * 2); x.fill(); return; }
+        x.setLineDash([0.1, lw * 1.75]); pathPx(x, st.pts); x.stroke();
+      });
+      x.setLineDash([]);
+    }
+    if (P.mode === 'trace' && !P.result && P.ink.length < tpl.strokes.length) {
+      const st = tpl.strokes[P.ink.length], g = css('--guide');
+      x.globalAlpha = 0.22; x.strokeStyle = g; x.lineWidth = lw * 1.5; x.lineCap = 'round'; pathPx(x, st.pts); x.stroke(); x.globalAlpha = 1;
+      if (!st.isDot) { arrowAt(x, st.pts, 0.42, g, clamp(6 * s, 9, 18)); if (st.pts.length > 60) arrowAt(x, st.pts, 0.78, g, clamp(6 * s, 9, 18)); }
+      badge(x, st.pts[0], P.ink.length + 1, g, clamp(7 * s, 11, 20));
+    }
+    if (P.result && P.overlay) { // show the right shape where he wrote it
+      const o = P.overlay, map = ([u, v]) => toPx([o.cxI + (u - o.cxT) / o.k, o.cyI + (v - o.cyT) / o.k]);
+      x.strokeStyle = css('--guide'); x.globalAlpha = 0.55; x.lineWidth = clamp(3 * s, 3, 8); x.setLineDash([2, 9]); x.lineCap = 'round';
+      tpl.strokes.forEach(st => { pathPx(x, st.pts, map); x.stroke(); });
+      x.setLineDash([]); x.globalAlpha = 1;
+    }
+  }
+  function drawInk() {
+    const x = inkX; x.setTransform(P.dpr, 0, 0, P.dpr, 0, 0); x.clearRect(0, 0, P.w, P.h);
+    x.strokeStyle = css('--pen'); x.lineWidth = penW(); x.lineCap = 'round'; x.lineJoin = 'round';
+    P.ink.forEach(st => { pathPx(x, st); x.stroke(); });
+    if (P.cur) { pathPx(x, P.cur); x.stroke(); }
+  }
+  function renderModel() {
+    const c = $('modelC'), r = c.getBoundingClientRect(), d = Math.min(2, window.devicePixelRatio || 1);
+    if (!r.width) return;
+    c.width = Math.round(r.width * d); c.height = Math.round(r.height * d);
+    const x = c.getContext('2d'); x.setTransform(d, 0, 0, d, 0, 0); x.clearRect(0, 0, r.width, r.height);
+    x.fillStyle = css('--paper'); x.fillRect(0, 0, r.width, r.height);
+    const tpl = S.tpl, s = Math.min((r.height - 20) / 155, (r.width - 24) / (tpl.w + 10)), ox = (r.width - tpl.w * s) / 2, oy = (r.height - 145 * s) / 2 + 3;
+    const m = ([u, v]) => [ox + u * s, oy + v * s];
+    [[0, '--rule', []], [50, '--rule', [5, 4]], [100, '--rule-base', []], [145, '--rule', [2, 4]]].forEach(([u, col, dash]) => { x.strokeStyle = css(col); x.lineWidth = 1.2; x.setLineDash(dash); x.beginPath(); x.moveTo(0, oy + u * s); x.lineTo(r.width, oy + u * s); x.stroke(); });
+    x.setLineDash([]); x.lineCap = 'round'; x.lineJoin = 'round';
+    const lw = clamp(5 * s, 3, 8);
+    tpl.strokes.forEach((st, i) => { x.strokeStyle = STROKE_COLS[i % 5]; x.lineWidth = lw; x.beginPath(); st.pts.forEach((p, k) => { const [a, b] = m(p); k ? x.lineTo(a, b) : x.moveTo(a, b); }); if (st.pts.length === 1) { const [a, b] = m(st.pts[0]); x.lineTo(a + .01, b); } x.stroke(); });
+    if (S.items[S.idx].length === 1) tpl.strokes.forEach((st, i) => {
+      const [a, b] = m(st.pts[0]), rr = clamp(4.5 * s * 1.6, 7, 10);
+      x.fillStyle = STROKE_COLS[i % 5]; x.beginPath(); x.arc(a, b, rr, 0, Math.PI * 2); x.fill();
+      x.fillStyle = '#fff'; x.font = `700 ${Math.round(rr * 1.25)}px sans-serif`; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(String(i + 1), a, b + .5);
+    });
+  }
+
+  // ---------- Watch: show how it is made ----------
+  const polyLen = pts => pts.reduce((L, p, i) => i ? L + dist(p, pts[i - 1]) : 0, 0);
+  function playWatch() {
+    cancelAnimationFrame(P.anim);
+    const strokes = S.tpl.strokes, lens = strokes.map(st => polyLen(st.pts)), speed = matchMedia('(prefers-reduced-motion: reduce)').matches ? 1e4 : 115;
+    let si = 0, t0 = null;
+    const frame = now => {
+      if (P.mode !== 'watch' || view !== 'practice') return;
+      if (t0 === null) t0 = now;
+      const st = strokes[si], dur = Math.max(0.3, lens[si] / speed), f = clamp((now - t0) / 1000 / dur, 0, 1);
+      const x = inkX; x.setTransform(P.dpr, 0, 0, P.dpr, 0, 0); x.clearRect(0, 0, P.w, P.h);
+      x.strokeStyle = css('--demo'); x.lineWidth = penW() * 1.1; x.lineCap = 'round'; x.lineJoin = 'round';
+      for (let k = 0; k < si; k++) { pathPx(x, strokes[k].pts); x.stroke(); }
+      const n = Math.max(1, Math.round(st.pts.length * f)), part = st.pts.slice(0, n);
+      if (f > 0) { pathPx(x, part); x.stroke(); }
+      for (let k = 0; k <= si; k++) badge(x, strokes[k].pts[0], k + 1, STROKE_COLS[k % 5], clamp(6.5 * P.T.s, 10, 18));
+      if (f > 0 && f < 1) { const [a, b] = toPx(part[part.length - 1]); x.fillStyle = css('--ink'); x.beginPath(); x.arc(a, b, penW() * 0.9, 0, Math.PI * 2); x.fill(); }
+      if (f >= 1) {
+        si++; t0 = now + 380;
+        if (si >= strokes.length) { P.watchDone = true; bubble('Your turn!', 2200); return; }
+      }
+      P.anim = requestAnimationFrame(frame);
+    };
+    P.anim = requestAnimationFrame(frame);
+  }
+
+  // ---------- Bubble ----------
+  let bubbleTimer = 0;
+  function bubble(t, ms = 2400) { const b = $('bubble'); b.textContent = t; b.classList.add('show'); clearTimeout(bubbleTimer); bubbleTimer = setTimeout(hideBubble, ms); }
+  function hideBubble() { $('bubble').classList.remove('show'); }
+
+  // ---------- Writing input ----------
+  const evU = e => { const r = inkC.getBoundingClientRect(); return toU(e.clientX - r.left, e.clientY - r.top); };
+  inkC.addEventListener('pointerdown', e => {
+    if (!S || P.mode === 'watch' || P.result) return;
+    if (e.pointerType === 'pen') P.penSeen = true;
+    if (P.penSeen && e.pointerType === 'touch') return; // palm resting while using a pencil
+    if (P.active !== null) return;
+    e.preventDefault(); unlockAudio(); hideBubble();
+    P.active = e.pointerId; try { inkC.setPointerCapture(e.pointerId); } catch (_) {}
+    clearTimeout(P.autoTimer);
+    P.cur = [evU(e)]; drawInk();
+  });
+  inkC.addEventListener('pointermove', e => {
+    if (e.pointerId !== P.active || !P.cur) return;
+    const evs = e.getCoalescedEvents ? e.getCoalescedEvents() : [];
+    (evs.length ? evs : [e]).forEach(ev => P.cur.push(evU(ev)));
+    const x = inkX, n = P.cur.length;
+    x.strokeStyle = css('--pen'); x.lineWidth = penW(); x.lineCap = 'round'; x.lineJoin = 'round';
+    pathPx(x, P.cur.slice(Math.max(0, n - (evs.length || 1) - 1))); x.stroke();
+  });
+  const endStroke = e => {
+    if (e.pointerId !== P.active) return;
+    P.active = null;
+    if (!P.cur) return;
+    P.ink.push(P.cur); P.cur = null; sfx.stroke();
+    const j = P.ink.length - 1, tpl = S.tpl;
+    if (P.mode === 'trace' && j < tpl.strokes.length && !dirOK(P.ink[j], tpl.strokes[j])) { sfx.oops(); bubble('Start at the green dot and follow the arrow', 2600); }
+    drawBg(); drawInk(); updateControls();
+    if (P.ink.length >= tpl.strokes.length) P.autoTimer = setTimeout(finishAttempt, P.mode === 'trace' ? 900 : 1500);
+  };
+  inkC.addEventListener('pointerup', endStroke);
+  inkC.addEventListener('pointercancel', endStroke);
+  inkC.addEventListener('contextmenu', e => e.preventDefault());
+
+  // ---------- Checking the writing ----------
+  function signedArea(pts) { let a = 0; for (let i = 0; i < pts.length; i++) { const p = pts[i], q = pts[(i + 1) % pts.length]; a += p[0] * q[1] - q[0] * p[1]; } return a / 2; }
+  function dirOK(ink, st) {
+    if (st.isDot || st.pts.length < 3 || ink.length < 3) return true;
+    const ts = st.pts[0], te = st.pts[st.pts.length - 1];
+    if (dist(ts, te) < 14) { // round shapes: check which way it goes round
+      const a = signedArea(ink), b = signedArea(st.pts);
+      return !(Math.abs(a) > 150 && Math.sign(a) !== Math.sign(b));
+    }
+    const a = ink[0], b = ink[ink.length - 1];
+    return !(dist(a, te) + 6 < dist(a, ts) && dist(b, ts) + 6 < dist(b, te));
+  }
+  function densify(strokes, step = 1.5) {
+    const out = [];
+    strokes.forEach(st => st.forEach((p, i) => {
+      if (!i) { out.push(p); return; }
+      const q = st[i - 1], d = dist(p, q), n = Math.ceil(d / step);
+      for (let k = 1; k <= n; k++) out.push([q[0] + (p[0] - q[0]) * k / n, q[1] + (p[1] - q[1]) * k / n]);
+    }));
+    return out;
+  }
+  function coverage(A, B, tol) {
+    if (!A.length || !B.length) return 0;
+    const cell = tol, grid = new Map(), key = (i, j) => i + ',' + j;
+    B.forEach(p => { const k = key(Math.floor(p[0] / cell), Math.floor(p[1] / cell)); (grid.get(k) || grid.set(k, []).get(k)).push(p); });
+    let hit = 0;
+    A.forEach(p => {
+      const ci = Math.floor(p[0] / cell), cj = Math.floor(p[1] / cell);
+      outer: for (let di = -1; di <= 1; di++) for (let dj = -1; dj <= 1; dj++) {
+        const arr = grid.get(key(ci + di, cj + dj)); if (!arr) continue;
+        for (const q of arr) if (dist(p, q) <= tol) { hit++; break outer; }
+      }
+    });
+    return hit / A.length;
+  }
+  const bbox = pts => { let x1 = 1e9, y1 = 1e9, x2 = -1e9, y2 = -1e9; pts.forEach(([x, y]) => { x1 = Math.min(x1, x); y1 = Math.min(y1, y); x2 = Math.max(x2, x); y2 = Math.max(y2, y); }); return { x1, y1, x2, y2, w: x2 - x1, h: y2 - y1, cx: (x1 + x2) / 2, cy: (y1 + y2) / 2 }; };
+
+  function check() {
+    const tpl = S.tpl, mode = P.mode, ink = P.ink.filter(s => s.length);
+    const tplPts = [];
+    tpl.strokes.forEach(st => st.isDot ? Array.from({ length: 12 }, () => tplPts.push(st.pts[0])) : st.pts.forEach(p => tplPts.push(p)));
+    let inkPts = densify(ink);
+    const hints = []; let pen = 0; P.overlay = null; P.capPlace = false;
+    if (mode === 'write' && inkPts.length) {
+      const bi = bbox(inkPts), bt = bbox(tplPts);
+      const hi = Math.max(bi.h, 8), ht = Math.max(bt.h, 8), wi = Math.max(bi.w, 8), wt = Math.max(bt.w, 8);
+      const kRaw = Math.sqrt((ht * wt) / (hi * wi)), k = clamp(kRaw, 0.72, 1.4), ratio = hi / ht;
+      if (k !== kRaw) pen += 0.08;
+      if (ratio > 1.35) hints.push('Make it a little smaller, so it fits the lines.');
+      else if (ratio < 0.7) hints.push('Make it a little bigger, so it touches the lines.');
+      else if (Math.abs(bi.y2 - bt.y2) > 12) { hints.push(bi.y2 < bt.y2 ? 'Sit it on the bottom line.' : 'Keep it on the bottom line, not below it.'); P.capPlace = true; }
+      P.overlay = { cxI: bi.cx, cyI: bi.cy, cxT: bt.cx, cyT: bt.cy, k };
+      inkPts = inkPts.map(([x, y]) => [bt.cx + (x - bi.cx) * k, bt.cy + (y - bi.cy) * k]);
+    }
+    const tol = mode === 'trace' ? Math.max(8, 20 / P.T.s) : Math.max(12, 26 / P.T.s);
+    const cov = coverage(tplPts, inkPts, tol), prec = coverage(inkPts, tplPts, tol * 1.5);
+    let sc = 0.55 * cov + 0.45 * prec - pen;
+    if (mode === 'trace') {
+      const n = Math.min(ink.length, tpl.strokes.length);
+      const wrongDir = ink.slice(0, n).some((s, j) => !dirOK(s, tpl.strokes[j]));
+      const mErr = (s, st) => { const a = s[0], b = s[s.length - 1], ts = st.pts[0], te = st.pts[st.pts.length - 1]; return Math.min(dist(a, ts) + dist(b, te), dist(a, te) + dist(b, ts)); };
+      const wrongOrder = ink.slice(0, n).some((s, j) => {
+        const own = mErr(s, tpl.strokes[j]); let kBest = j, eBest = own;
+        tpl.strokes.forEach((st, k) => { const e = mErr(s, st); if (e < eBest - 1) { eBest = e; kBest = k; } });
+        return kBest !== j && eBest < 30 && own > 45;
+      });
+      if (wrongDir) hints.push('Start at the green dot and follow the arrow.');
+      else if (wrongOrder) hints.push('Follow the numbers: 1, then 2, then 3.');
+      if (wrongDir || wrongOrder) sc = Math.min(sc, 0.84);
+    }
+    const dotMissed = tpl.strokes.some(st => st.isDot && !inkPts.some(p => dist(p, st.pts[0]) < tol * 1.6));
+    if (dotMissed) { hints.unshift('Don’t forget the dot!'); sc = Math.min(sc, 0.71); }
+    if (P.capPlace) sc = Math.min(sc, 0.85);
+    if (cov < 0.8 && !dotMissed) hints.push(mode === 'trace' ? 'Trace every part of the dotted letter.' : 'Some parts are missing. Look at the example.');
+    if (prec < 0.78) hints.push(mode === 'trace' ? 'Try to stay on the dots.' : 'Try to keep it neat, without extra lines.');
+    const score = Math.round(clamp(sc, 0, 1) * 100);
+    return { score, stars: starsOf(score), hints: uniq(hints).slice(0, 2), cov, prec };
+  }
+
+  function finishAttempt() {
+    clearTimeout(P.autoTimer);
+    if (!S || P.result || !P.ink.length || P.mode === 'watch') return;
+    const r = check(), it = S.items[S.idx];
+    P.result = r;
+    mem.attempts.push({ i: it, m: P.mode, s: r.score, t: Date.now(), l: S.L.id });
+    S.res[it][P.mode].push(r.score); save();
+    drawBg(); updateControls(); showResult(r);
+    if (r.stars) sfx.star(r.stars); else sfx.oops();
+  }
+  function nextLabel() {
+    const lastStep = S.stepIdx >= S.plan.length - 1, lastItem = S.idx >= S.items.length - 1;
+    if (!lastStep) return S.plan[S.stepIdx + 1] === 'write' ? 'Write it myself →' : 'Trace again →';
+    if (lastItem) return 'Finish ✓';
+    return kindOf(S.items[S.idx + 1]) === 'word' ? 'Next word →' : kindOf(S.items[S.idx + 1]) === 'number' ? 'Next number →' : 'Next letter →';
+  }
+  function showResult(r) {
+    const titles = [['Let’s try again!', 'Have another go!'], ['Good try!', 'Getting there!'], ['Great job!', 'Nice writing!'], ['Super neat!', 'Wow, beautiful!', 'Perfect!']][r.stars];
+    const title = titles[Math.floor(Math.random() * titles.length)];
+    const hints = r.hints.length ? r.hints : [r.stars === 3 ? (P.mode === 'write' ? 'You wrote it all by yourself!' : 'Right on the dots!') : 'Look at the example and try again.'];
+    $('result').innerHTML = `<div class="res-card" role="dialog" aria-label="Result">
+      <div class="res-stars" aria-label="${r.stars} stars">${starHTML(r.stars)}</div>
+      <div class="res-title">${title}</div>
+      <ul class="res-hints">${hints.map(h => `<li>${h}</li>`).join('')}</ul>
+      <div class="res-btns"><button class="big-btn alt small" id="againBtn">↺ Try again</button><button class="big-btn small" id="nextBtn">${nextLabel()}</button></div>
+    </div>`;
+    $('result').hidden = false;
+    $('againBtn').onclick = () => { sfx.tap(); setMode(P.mode); };
+    $('nextBtn').onclick = () => { sfx.tap(); advance(); };
+  }
+  function advance() {
+    if (S.stepIdx < S.plan.length - 1) { S.stepIdx++; setMode(S.plan[S.stepIdx]); return; }
+    if (S.idx < S.items.length - 1) { S.idx++; beginItem(); return; }
+    finishLesson();
+  }
+
+  // ---------- Controls ----------
+  $('doneBtn').onclick = () => {
+    unlockAudio(); sfx.tap();
+    if (P.mode === 'watch' && P.returnTo) { setMode(P.returnTo); return; }
+    if (P.mode === 'watch') { S.stepIdx++; setMode(S.plan[S.stepIdx]); return; }
+    finishAttempt();
+  };
+  $('clearBtn').onclick = () => { sfx.tap(); clearTimeout(P.autoTimer); P.ink = []; P.cur = null; drawBg(); drawInk(); updateControls(); };
+  $('watchBtn').onclick = () => {
+    unlockAudio(); sfx.tap();
+    if (P.mode === 'watch' && !P.returnTo) { setMode('watch'); return; }
+    // show the demo again, then go back to the same step
+    const keep = P.returnTo || P.mode;
+    cancelAnimationFrame(P.anim); clearTimeout(P.autoTimer);
+    P.mode = 'watch'; P.returnTo = keep; P.ink = []; P.cur = null; P.result = null; P.overlay = null; P.watchDone = false; $('result').hidden = true; hideBubble();
+    drawBg(); updateControls(); playWatch();
+  };
+  $('hearBtn').onclick = () => { unlockAudio(); if (S) speak(sayFor(S.items[S.idx])); };
+  $('quitBtn').onclick = () => {
+    const any = S && Object.values(S.res).some(r => r.trace.length || r.write.length);
+    modal(`<h3>Stop practising?</h3><p>${any ? 'Your stars so far are saved.' : 'You can come back any time.'}</p><div class="row"><button class="big-btn alt" data-m="close">Keep going</button><button class="big-btn" data-m="quit">Stop</button></div>`);
+  };
+  new ResizeObserver(() => { if (view === 'practice' && S) { layout(); drawBg(); if (P.mode !== 'watch' || P.watchDone) drawInk(); renderModel(); } }).observe(padEl);
+
+  // ================= Lesson summary =================
+  function recordSession() {
+    const items = Object.entries(S.res).filter(([, r]) => r.trace.length || r.write.length);
+    if (!items.length) return null;
+    const best = {}; items.forEach(([it, r]) => best[it] = { w: r.write.length ? Math.max(...r.write) : -1, t: r.trace.length ? Math.round(r.trace.reduce((a, b) => a + b, 0) / r.trace.length) : -1 });
+    const ws = Object.values(best).map(b => b.w).filter(v => v >= 0);
+    const sess = { id: S.start, l: S.L.id, single: S.single, secs: Math.round((Date.now() - S.start) / 1000), best, avg: ws.length ? Math.round(ws.reduce((a, b) => a + b, 0) / ws.length) : -1, stars: ws.reduce((s, v) => s + starsOf(v), 0) };
+    mem.sessions.push(sess); save();
+    return sess;
+  }
+  function finishLesson() {
+    const prior = mem.sessions.filter(s => s.l === S.L.id && !s.single);
+    const priorAttempts = mem.attempts.filter(a => a.t < S.start);
+    const sess = recordSession(); S = null;
+    if (!sess) { renderHome(); show('home'); return; }
+    renderSummary(sess, prior, priorAttempts); show('summary'); sfx.done();
+    if (sess.stars >= Object.keys(sess.best).length * 2) confetti();
+  }
+  function renderSummary(sess, prior, priorAttempts) {
+    const L = LESSONS.find(l => l.id === sess.l), items = Object.keys(sess.best), max = items.length * 3;
+    const pct = sess.stars / max;
+    const msg = pct >= .9 ? 'Amazing writing, Aveer! 🌟' : pct >= .66 ? 'Great work, Aveer! 🎉' : pct >= .4 ? 'Good practice, Aveer! 👍' : 'Keep practising, Aveer! 💪';
+    const notes = [];
+    const last = prior[prior.length - 1];
+    if (sess.single) notes.push(['flat', `Extra practice on ${items[0]}.`]);
+    else if (last) { const d = sess.stars - last.stars; notes.push([d > 0 ? 'up' : d < 0 ? 'down' : 'flat', d > 0 ? `<b>${plural(d, 'more star')}</b> than last time on this lesson (${last.stars} → ${sess.stars}).` : d < 0 ? `${plural(-d, 'star')} fewer than last time (${last.stars} → ${sess.stars}). Writing changes from day to day, so keep practising!` : `The same stars as last time (${sess.stars}).`]); }
+    else notes.push(['flat', 'First time doing this lesson. These stars are the starting point for next time.']);
+    const neater = items.filter(it => { const before = priorAttempts.filter(a => a.i === it && a.m === 'write'); if (!before.length) return false; const prevBest = Math.max(...before.map(a => a.s)); return sess.best[it].w >= prevBest + 6; });
+    if (neater.length) notes.push(['up', `Neater than ever before: <b>${neater.join(', ')}</b>.`]);
+    const neat = items.filter(it => sess.best[it].w >= 86);
+    if (neat.length && !neater.length) notes.push(['up', `Very neat today: <b>${neat.slice(0, 6).join(', ')}</b>.`]);
+    const weak = items.filter(it => sess.best[it].w >= 0 && sess.best[it].w < 72);
+    if (weak.length) notes.push(['down', `Practise again: <b>${weak.join(', ')}</b>. Tap a letter on the Lessons page to practise just that one.`]);
+    const rows = items.map(it => {
+      const b = sess.best[it], ws = starsOf(b.w), ever = bestWrite(it);
+      return `<div class="irow"><div class="g ${it.length > 1 ? 'word' : ''}">${it}</div><div class="d">Written by himself: ${b.w >= 0 ? b.w + '%' : 'not done'} · Tracing: ${b.t >= 0 ? b.t + '%' : '–'}${ever > b.w ? ` · Best ever ${ever}%` : ''}</div><div class="st" aria-label="${ws} stars">${starHTML(b.w >= 0 ? ws : 0)}</div></div>`;
+    }).join('');
+    const nl = LESSONS.indexOf(L) + 1 < LESSONS.length ? LESSONS[LESSONS.indexOf(L) + 1] : null;
+    $('vSummary').innerHTML = `
+      <div class="card sum-hero">
+        <span class="chip-l">${L.icon} ${L.name}</span>
+        <div class="sum-msg">${msg}</div>
+        <div class="sum-stars">${sess.stars}<small> / ${max} ★</small></div>
+        <div class="facts"><span>${plural(items.length, items[0].length > 1 ? 'word' : 'letter')}</span><span>⏱ ${fmtSecs(sess.secs)}</span>${sess.avg >= 0 ? `<span>Neatness ${sess.avg}%</span>` : ''}</div>
+        <div class="actions">${nl && !sess.single ? `<button class="big-btn" id="goNext">${nl.name} →</button>` : ''}<button class="big-btn ${nl && !sess.single ? 'alt' : ''}" id="again">Practise again</button><button class="big-btn alt" id="toProg">See progress</button></div>
+      </div>
+      <div class="card section notes"><h3>How Aveer is doing</h3><ul>${notes.map(([k, t]) => `<li><span class="dot ${k}">${k === 'up' ? '↑' : k === 'down' ? '!' : '•'}</span><span>${t}</span></li>`).join('')}</ul></div>
+      <div class="card section"><h3>Today’s writing</h3><div class="rows">${rows}</div></div>`;
+    if ($('goNext')) $('goNext').onclick = () => { unlockAudio(); startLesson(nl.id); };
+    $('again').onclick = () => { unlockAudio(); sess.single ? startLesson(L.id, items[0]) : startLesson(L.id); };
+    $('toProg').onclick = () => { renderProgress(); show('progress'); };
+  }
+
+  // ================= Progress =================
+  function renderProgress() {
+    const tried = ALL_ITEMS.filter(it => bestWrite(it) >= 0), neat = ALL_ITEMS.filter(it => bestWrite(it) >= 86);
+    const totalStars = LESSONS.reduce((s, L) => s + lessonStars(L), 0);
+    const sess = mem.sessions;
+    let html = `<div class="tiles">
+      <div class="card tile"><div class="k">Days practised</div><div class="v">${daysPractised()}</div></div>
+      <div class="card tile"><div class="k">Letters &amp; words tried</div><div class="v">${tried.length}<small style="font-size:.5em;color:var(--muted)"> / ${ALL_ITEMS.length}</small></div></div>
+      <div class="card tile"><div class="k">Super neat ★★★</div><div class="v">${neat.length}</div></div>
+      <div class="card tile"><div class="k">Stars</div><div class="v">${totalStars}</div></div></div>`;
+    if (!sess.length) {
+      html += `<div class="card section"><div class="empty"><b>No practice yet</b>Finish a lesson and Aveer’s stars, neatest letters and progress will show here.</div></div>`;
+    } else {
+      const notes = [];
+      if (sess.length >= 4) {
+        const h = Math.floor(sess.length / 2), a = sess.slice(0, h).filter(s => s.avg >= 0), b = sess.slice(-h).filter(s => s.avg >= 0);
+        if (a.length && b.length) {
+          const f = Math.round(a.reduce((s, x) => s + x.avg, 0) / a.length), l = Math.round(b.reduce((s, x) => s + x.avg, 0) / b.length);
+          notes.push([l - f > 3 ? 'up' : l - f < -3 ? 'down' : 'flat', `Neatness moved from <b>${f}%</b> in the first ${plural(h, 'practice', 'practices')} to <b>${l}%</b> in the latest ${plural(h, 'practice', 'practices')}${l - f > 3 ? '. His writing is getting neater!' : l - f < -3 ? ', partly because later lessons are harder.' : '.'}`]);
+        }
+      } else notes.push(['flat', `${plural(sess.length, 'practice', 'practices')} so far. Trends show after a few more.`]);
+      const improved = tried.filter(it => { const w = writesOf(it); return w.length >= 2 && w[w.length - 1].s - w[0].s >= 12; });
+      if (improved.length) notes.push(['up', `Getting neater: <b>${improved.slice(0, 8).join(', ')}</b>.`]);
+      if (neat.length) notes.push(['up', `Super neat: <b>${neat.slice(0, 12).join(', ')}</b>${neat.length > 12 ? ` and ${neat.length - 12} more` : ''}.`]);
+      const weak = tried.filter(it => bestWrite(it) < 72).sort((a, b) => bestWrite(a) - bestWrite(b));
+      if (weak.length) notes.push(['down', `Needs more practice: <b>${weak.slice(0, 8).join(', ')}</b>. Tap one below to practise it.`]);
+      const untried = LESSONS.filter(L => !L.items.some(it => bestWrite(it) >= 0));
+      if (untried.length) notes.push(['flat', `Not started yet: ${untried.map(L => L.name).slice(0, 4).join(', ')}.`]);
+      const st = streak(); if (st > 1) notes.push(['up', `${st} days in a row!`]);
+      html += `<div class="card section notes"><h3>Progress notes</h3><ul>${notes.map(([k, t]) => `<li><span class="dot ${k}">${k === 'up' ? '↑' : k === 'down' ? '!' : '•'}</span><span>${t}</span></li>`).join('')}</ul></div>`;
+      html += `<div class="card section"><h3>Neatness over time</h3><div class="chart-box" id="chart"></div><p style="color:var(--muted);margin:8px 0 0;font-size:14px">Each dot is one practice: how neatly he wrote on his own (traced letters not counted).</p></div>`;
+    }
+    const group = (title, items) => `<div class="grid-h">${title}</div><div class="chips">${items.map(it => chipHTML(it)).join('')}</div>`;
+    html += `<div class="card section"><h3>All letters</h3><p style="color:var(--muted);margin:0 0 4px">Green = super neat, yellow = good, red = needs practice. Tap any one to practise it.</p>
+      ${group('Capitals', LESSONS.slice(0, 3).flatMap(l => l.items).sort())}${group('Small letters', LESSONS.slice(3, 7).flatMap(l => l.items).sort())}${group('Numbers', LESSONS[7].items)}${group('Words', [...LESSONS[8].items, ...LESSONS[9].items])}</div>`;
+    if (sess.length) {
+      html += `<div class="card section"><h3>All practice</h3><div class="tblwrap"><table class="hist"><thead><tr><th>When</th><th>Lesson</th><th>Stars</th><th>Neatness</th><th>Time</th></tr></thead><tbody>${sess.slice().reverse().slice(0, 60).map(s => { const L = LESSONS.find(l => l.id === s.l); const n = Object.keys(s.best).length; return `<tr><td>${fmtDate(s.id)}</td><td>${s.single ? 'Extra: ' + Object.keys(s.best)[0] : L ? L.name : s.l}</td><td>${s.stars} / ${n * 3}</td><td>${s.avg >= 0 ? s.avg + '%' : '–'}</td><td>${fmtSecs(s.secs)}</td></tr>`; }).join('')}</tbody></table></div></div>`;
+    }
+    html += `<div class="card section parent"><h3>For parents</h3>${statusHTML()}
+      <p style="margin-top:10px">${keeping() ? 'Progress is saved in this browser on this device. Open the app from its Home Screen icon so Safari keeps it.' : '<b>This window is not keeping progress.</b> Open the app’s own link in Safari and add it to the Home Screen.'} Use a backup code to move progress to another device or keep it safe.</p>
+      <div class="prow"><button class="big-btn alt small" id="copyBackup">Copy backup code</button><button class="big-btn alt small" id="showRestore">Restore from a code</button><button class="danger" id="resetBtn" data-armed="false">Reset all progress</button></div>
+      <textarea id="backupText" class="code-box" readonly hidden aria-label="Backup code"></textarea>
+      <div id="restoreBox" hidden><textarea id="restoreText" class="code-box" placeholder="Paste the backup code here" aria-label="Paste backup code"></textarea><button class="big-btn small" id="doRestore" style="margin-top:8px">Restore progress</button></div>
+      <p class="msg" id="backupMsg" role="status"></p></div>`;
+    $('vProgress').innerHTML = `<div style="padding-bottom:40px">${html}</div>`;
+    drawChart();
+    $('vProgress').querySelectorAll('[data-item]').forEach(b => b.onclick = () => { unlockAudio(); startLesson(lessonOf(b.dataset.item).id, b.dataset.item); });
+    wireParent();
+  }
+  function drawChart() {
+    const box = $('chart'); if (!box) return;
+    const A = mem.sessions.filter(s => s.avg >= 0).slice(-30);
+    if (!A.length) { box.innerHTML = '<p class="empty">No written letters yet.</p>'; return; }
+    const W = Math.max(280, box.clientWidth), H = 220, pl = 40, pr = 16, pt = 14, pb = 30;
+    const x = i => A.length === 1 ? pl + (W - pl - pr) / 2 : pl + i * (W - pl - pr) / (A.length - 1);
+    const y = v => pt + (1 - v / 100) * (H - pt - pb);
+    let s = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Neatness over time">`;
+    [0, 50, 100].forEach(v => s += `<line x1="${pl}" x2="${W - pr}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${pl - 8}" y="${y(v) + 4}" text-anchor="end">${v}%</text>`);
+    s += `<line x1="${pl}" x2="${W - pr}" y1="${y(86)}" y2="${y(86)}" stroke="var(--good)" stroke-dasharray="6 5" opacity=".8"/><text x="${pl + 6}" y="${y(86) - 6}">★★★ super neat</text>`;
+    if (A.length > 1) {
+      const pts = A.map((a, i) => `${x(i)},${y(a.avg)}`).join(' ');
+      s += `<polygon points="${pl},${y(0)} ${pts} ${x(A.length - 1)},${y(0)}" fill="var(--teal)" opacity=".12"/><polyline points="${pts}" fill="none" stroke="var(--teal)" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>`;
+    }
+    A.forEach((a, i) => { s += `<circle cx="${x(i)}" cy="${y(a.avg)}" r="${i === A.length - 1 ? 7 : 4.5}" fill="var(--teal)" stroke="var(--card)" stroke-width="2"><title>${fmtDate(a.id)}: ${a.avg}%</title></circle>`; });
+    const L = A[A.length - 1];
+    s += `<text x="${Math.min(x(A.length - 1), W - pr - 14)}" y="${L.avg > 90 ? y(L.avg) + 22 : y(L.avg) - 12}" text-anchor="middle" style="fill:var(--ink);font-size:13px">${L.avg}%</text>`;
+    box.innerHTML = s + '</svg>';
+  }
+  function merge(a, b) {
+    const resetAt = Math.max(a.resetAt || 0, b.resetAt || 0), at = new Map(), ss = new Map();
+    [...(a.attempts || []), ...(b.attempts || [])].forEach(x => { if (x && x.t > resetAt) at.set(x.t + '|' + x.i + '|' + x.m, x); });
+    [...(a.sessions || []), ...(b.sessions || [])].forEach(x => { if (x && x.id > resetAt) ss.set(x.id, x); });
+    return { attempts: [...at.values()].sort((p, q) => p.t - q.t), sessions: [...ss.values()].sort((p, q) => p.id - q.id), resetAt };
+  }
+  function wireParent() {
+    const msg = t => { $('backupMsg').textContent = t; };
+    $('copyBackup').onclick = async () => {
+      const code = 'AVEER-HW1:' + btoa(unescape(encodeURIComponent(JSON.stringify({ attempts: mem.attempts, sessions: mem.sessions, resetAt: mem.resetAt || 0 }))));
+      const box = $('backupText'); box.value = code;
+      try { await navigator.clipboard.writeText(code); box.hidden = true; msg(`Backup code copied (${plural(mem.sessions.length, 'practice', 'practices')}). Paste it into Notes to keep it safe.`); }
+      catch (_) { box.hidden = false; box.focus(); box.select(); msg('Copy the selected code and keep it in Notes.'); }
+    };
+    $('showRestore').onclick = () => { $('restoreBox').hidden = false; $('restoreText').focus(); };
+    $('doRestore').onclick = () => {
+      const raw = $('restoreText').value.trim();
+      try {
+        if (!raw.startsWith('AVEER-HW1:')) throw 0;
+        const data = JSON.parse(decodeURIComponent(escape(atob(raw.slice(10)))));
+        if (!Array.isArray(data.attempts)) throw 0;
+        const before = mem.sessions.length;
+        Object.assign(mem, merge(mem, data)); save(); renderProgress();
+        $('backupMsg').textContent = `Restored. ${plural(mem.sessions.length - before, 'practice', 'practices')} added back.`;
+      } catch (_) { msg('That code did not work. Copy the whole code, starting with AVEER-HW1:'); }
+    };
+    const r = $('resetBtn');
+    r.onclick = () => {
+      if (r.dataset.armed !== 'true') { r.dataset.armed = 'true'; r.textContent = 'Tap again to delete all progress'; return; }
+      mem.attempts = []; mem.sessions = []; mem.resetAt = Date.now(); save(); renderProgress();
+    };
+  }
+
+  // ================= Modal, confetti, nav =================
+  function modal(html) {
+    $('modalCard').innerHTML = html; $('modal').hidden = false;
+    $('modalCard').querySelectorAll('[data-m]').forEach(b => b.onclick = () => {
+      $('modal').hidden = true;
+      if (b.dataset.m === 'quit') { cancelAnimationFrame(P.anim); clearTimeout(P.autoTimer); if (S) recordSession(); S = null; renderHome(); show('home'); }
+    });
+  }
+  function confetti() {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const c = $('confetti'), x = c.getContext('2d'); c.hidden = false; c.width = innerWidth; c.height = innerHeight;
+    const cols = ['#0E7C86', '#F5B700', '#1F9254', '#E53935', '#1E88E5', '#F06292'];
+    const ps = Array.from({ length: 140 }, () => ({ x: Math.random() * c.width, y: -20 - Math.random() * c.height * .5, vx: (Math.random() - .5) * 3, vy: 2 + Math.random() * 4, r: Math.random() * 6, s: 6 + Math.random() * 7, c: cols[(Math.random() * cols.length) | 0] }));
+    const t0 = performance.now();
+    (function f(now) {
+      x.clearRect(0, 0, c.width, c.height);
+      ps.forEach(p => { p.x += p.vx; p.y += p.vy; p.r += .1; x.save(); x.translate(p.x, p.y); x.rotate(p.r); x.fillStyle = p.c; x.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); x.restore(); });
+      if (now - t0 < 2600) requestAnimationFrame(f); else { x.clearRect(0, 0, c.width, c.height); c.hidden = true; }
+    })(t0);
+  }
+  $('navHome').onclick = () => { unlockAudio(); renderHome(); show('home'); };
+  $('navProgress').onclick = () => { unlockAudio(); renderProgress(); show('progress'); };
+  const syncSound = () => { $('navSound').querySelector('.ic').textContent = mem.sound ? '🔊' : '🔇'; $('navSound').setAttribute('aria-label', mem.sound ? 'Sound on' : 'Sound off'); };
+  $('navSound').onclick = () => { mem.sound = !mem.sound; save(); syncSound(); unlockAudio(); sfx.tap(); if (!mem.sound && canSpeak) speechSynthesis.cancel(); };
+  syncSound();
+  window.addEventListener('resize', () => { if (view === 'progress') drawChart(); });
+  if (canSpeak) { try { speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => {}; } catch (_) {} }
+
+  renderHome(); show('home');
+  window.__hw = { layoutItem, P, S: () => S, toPx, check, GLYPHS };
+})();
+</script>
+
+</body>
+</html>
